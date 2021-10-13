@@ -135,56 +135,84 @@
 
 
         //POLYGON
-       		 
                 $.getJSON('assets/json/ladang.json', function(json) {
                     geoLayer = L.geoJson(json, {
-                        style: function(feature) {         
+
+                        style: function(feature) { 
+
+
+                          if (feature.properties.kategori ==1){
+                            return {
+                                        weight: 2,
+                                        opacity: 1,
+                                        color:'#eb4034',
+                                        fillColor:'yellow',
+                                        };
+                          }else{
                             return {
                                         weight: 2,
                                         opacity: 1,
                                         color:'#eb4034',
                                         fillColor:'#0990b5',
                                         };
+                          }
+                            
                         },
 
                         onEachFeature: function(feature, layer) {
                            
-                            var iconLabel = L.divIcon({
-									className: 'ladang',
-									html: '<b>'+feature.properties.nama+'</b>',
-									iconSize: [100, 20]
-								});
-								
-                            L.marker(layer.getBounds().getCenter(),{icon:iconLabel}).addTo(map);
+                          //alert(feature.properties.kategori);
+
+                         
+
+                                  var iconLabel = L.divIcon({
+                                    className: 'ladang',
+                                    html: '<b>'+feature.properties.nama+'</b>',
+                                    iconSize: [100, 20]
+                                  });
                             
-                            layer.on('click',(e)=>{
-                                $.getJSON('json?id='+feature.properties.id, function(s) {
-                                    $.each(s, function(j) {
-                                        var foto = 'no_image.jpg';
-                                        if (s[j].gambar !=''){
-                                            foto=s[j].gambar;
-                                        }
+                                        L.marker(layer.getBounds().getCenter(),{icon:iconLabel}).addTo(map);
                                         
-                                        var html='<div class="center"><a href="detail?id='+s[j].id+'&v=ladang"><img width="200px" height="200px" src="assets/uploads/'+foto+'"></a>';
-                                        html+='<a href="detail?id='+s[j].id+'&v=ladang"><h6 class="mt-2">'+s[j].nama+'<h6></a>';
-                                        html+='<hr>';
-                                        html+='<p class="address">Alamat : '+s[j].alamat+'</p></div>';
+                                        layer.on('click',(e)=>{
+                                            $.getJSON('json?id='+feature.properties.id, function(s) {
+                                                $.each(s, function(j) {
+                                                    var foto = 'no_image.jpg';
+                                                    if (s[j].gambar !=''){
+                                                        foto=s[j].gambar;
+                                                    }
+                                                    
+                                                    var html='<div class="center"><a href="detail?id='+s[j].id+'&v=ladang"><img width="200px" height="200px" src="assets/uploads/'+foto+'"></a>';
+                                                    html+='<a href="detail?id='+s[j].id+'&v=ladang"><h6 class="mt-2">'+s[j].nama+'<h6></a>';
+                                                    html+='<hr>';
+                                                    html+='<p class="address">Alamat : '+s[j].alamat+'</p></div>';
 
-                                        L.popup()
-                                                    //.setLatLng(layer.getBounds().getCenter())
-                                                    .setLatLng(e.latlng)
-                                                    .setContent(html)
-                                                    .openOn(map);
-                                                    
-                                                    
-                                    })
+                                                    L.popup()
+                                                                //.setLatLng(layer.getBounds().getCenter())
+                                                                .setLatLng(e.latlng)
+                                                                .setContent(html)
+                                                                .openOn(map);
+                                                                
+                                                                
+                                                })
+                                            });
+
+                                        });
+
+                                        layer.addTo(map); 
+                                    }
                                 });
+                            })
 
-                            });
 
-                            layer.addTo(map); 
-                        }
-                    });
-                })
+    map.on('zoomend', function() {
+
+      if (map.getZoom()>13){
+
+      }else{
+
+      }
+      
+    });
+
 </script>
 </html>

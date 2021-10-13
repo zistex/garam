@@ -70,6 +70,18 @@ https://leafletjs.com/examples/quick-start/
         subdomains:['mt0','mt1','mt2','mt3']
     }).addTo(map);
 
+    //SIMPLE MARKER
+    //L.marker([-7.2759291,112.7464332]).addTo(map);
+
+
+    //CUSTOM MARKER
+    var hotelIcon = L.icon({
+        iconUrl: 'assets/icons/hotel.png',
+        iconSize:     [24, 28] //w x h
+    });
+
+    var marker = L.marker([-7.2759291,112.7464332], {icon: hotelIcon}).addTo(map);
+    marker.bindPopup('<p>Hello world!<br />This is a nice popup.</p>').openPopup();
 
 </script>
 </html>

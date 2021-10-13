@@ -16,6 +16,11 @@
 
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
+
+
+   <link rel="stylesheet" href="assets/js/MarkerCluster.css"/>
+   <script src="assets/js/leaflet.markercluster-src.js"></script>
+
    <style>
        #mapid { height: 80vh; }
 
@@ -25,9 +30,8 @@
                     text-shadow: 1px 1px #ffffff;
                     text-align: center;
            }
-	   
-	   
-	    .legend {
+
+           .legend {
             width:180px;
             position: absolute;
             right: 10px;
@@ -52,10 +56,23 @@
 
 </div>
   
+<div>
+<input  onclick="aktif_ladang(this)"  type="checkbox" >Ladang Garam</input>
+<input onclick="aktif_bangunan(this)" type="checkbox"  >Bangunan</input>
+</div>
+
+
+
+
      <div id="mapid"></div>
 </body>
 <script>
-   var geoLayer;
+  var lyr_marker = L.markerClusterGroup();
+  var lyr_bangunan = L.markerClusterGroup();
+  var lyr_ladang = L.markerClusterGroup();
+
+    var geoLayer;
+    var geoLayerMarker;
     var map = L.map('mapid').setView([-7.2759291,112.7464332], 15);
 
     // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -186,6 +203,13 @@
                         onEachFeature: function(feature, layer) {
                            
                           //alert(feature.properties.kategori);
+                         
+                          if (feature.properties.kategori == 1){
+                            lyr_ladang.addLayer(layer);
+                          }else{
+                            lyr_bangunan.addLayer(layer);
+                          }
+
 
                          
 
@@ -195,8 +219,9 @@
                                     iconSize: [100, 20]
                                   });
                             
-                                        L.marker(layer.getBounds().getCenter(),{icon:iconLabel}).addTo(map);
-                                        
+                                        var geoLayerMarker = L.marker(layer.getBounds().getCenter(),{icon:iconLabel}).addTo(map);
+                                        lyr_marker.addLayer(geoLayerMarker);
+
                                         layer.on('click',(e)=>{
                                             $.getJSON('json?id='+feature.properties.id, function(s) {
                                                 $.each(s, function(j) {
@@ -222,7 +247,7 @@
 
                                         });
 
-                                        layer.addTo(map); 
+                                        //layer.addTo(map); 
                                     }
                                 });
                             })
@@ -248,8 +273,7 @@
       }
 
 
-
- //LEGENDA
+      //LEGENDA
       var legend = L.control({position: 'bottomright'});
       legend.onAdd = function (map) {
     
@@ -287,15 +311,55 @@
 
 
 
+      //LAYER GROUP
+     
+      function aktif_ladang(v){
+        if (v.checked){    
+          map.addLayer(lyr_ladang);
+        }else{    
+          map.removeLayer(lyr_ladang);
+        }
+      }
+
+      function aktif_bangunan(v){
+        if (v.checked){    
+          map.addLayer(lyr_bangunan);
+        }else{    
+          map.removeLayer(lyr_bangunan);
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
       map.on('zoomend', function() {
+        
+      if (map.getZoom()>12){
+        
+        //map.addLayer(lyr_bangunan);
+        //map.removeLayer(lyr_marker);
 
-      if (map.getZoom()>13){
-
+         
       }else{
-
+        //map.addLayer(lyr_marker);
+        //map.removeLayer(lyr_bangunan);
       }
       
     });

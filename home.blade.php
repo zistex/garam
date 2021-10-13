@@ -25,6 +25,20 @@
                     text-shadow: 1px 1px #ffffff;
                     text-align: center;
            }
+	   
+	   
+	    .legend {
+            width:180px;
+            position: absolute;
+            right: 10px;
+            bottom: 40px;
+            background-color: white;
+            padding:10px;
+            z-index: 99999;
+            box-shadow:0 0 7px #999;
+            background: #fff;
+            border-radius: 2px;
+          }
 
     </style>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 13, 2021 at 05:17 AM
+-- Generation Time: Oct 13, 2021 at 06:48 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.9
 
@@ -36,14 +36,15 @@ CREATE TABLE IF NOT EXISTS `tbl_aset` (
   `gambar` varchar(250) NOT NULL,
   `alamat` varchar(250) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbl_aset`
 --
 
 INSERT INTO `tbl_aset` (`id`, `kategori`, `idpeta`, `nama`, `gambar`, `alamat`) VALUES
-(1, 1, 1, 'ladang 1', 'ladang1.jpeg', 'jln. abc');
+(1, 1, 1, 'ladang 1', 'ladang1.jpeg', 'jln. abc'),
+(2, 2, 2, 'Rumah dinas', 'rumah.jpeg', 'jln. cba');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

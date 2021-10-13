@@ -32,6 +32,8 @@ https://leafletjs.com/examples/quick-start/
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+   
    <style>
        #mapid { height: 100vh; }
     </style>
@@ -81,7 +83,91 @@ https://leafletjs.com/examples/quick-start/
     });
 
     var marker = L.marker([-7.2759291,112.7464332], {icon: hotelIcon}).addTo(map);
+    
+    //POPUP
     marker.bindPopup('<p>Hello world!<br />This is a nice popup.</p>').openPopup();
+
+    // var popup = L.popup()
+    //     .setLatLng(latlng)
+    //     .setContent('<p>Hello world!<br />This is a nice popup.</p>')
+    //     .openOn(map);
+
+
+    //POLYLINE
+    var latlngs = [
+        [
+            
+            -7.264522037937439,
+            112.78070926666258,
+          ],
+          [
+            
+            -7.264309183587834,
+            112.77663230895996,
+          ],
+          [
+            
+            -7.263755761807139,
+            112.77268409729004,
+          ],
+          [
+            
+            -7.2632449103278995,
+            112.76847839355469,
+          ],
+          [
+            
+            -7.262989484370584,
+            112.76431560516357,
+          ],
+          [
+            
+            -7.261882636878651,
+            112.76216983795166,
+          ],
+          [
+            
+            -7.261286640946718,
+            112.76058197021484,
+          ],
+          [
+            
+            -7.260179789263145,
+            112.75933742523192,
+          ]
+        ];
+
+        var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+        // zoom the map to the polyline
+        map.fitBounds(polyline.getBounds());
+
+
+
+        //POLYGON
+       		 
+                $.getJSON('assets/json/ladang.json', function(json) {
+                    geoLayer = L.geoJson(json, {
+                        style: function(feature) {         
+                            return {
+                                        weight: 2,
+                                        opacity: 1,
+                                        color:'#eb4034'
+                                        };
+                        },
+
+                        onEachFeature: function(feature, layer) {
+                        layer.addTo(map);
+                        }
+                    });
+                })
+    
+            
+       
+
+
+
+
 
 </script>
 </html>

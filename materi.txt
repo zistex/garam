@@ -33,9 +33,17 @@ https://leafletjs.com/examples/quick-start/
    crossorigin=""></script>
 
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-   
+
    <style>
        #mapid { height: 100vh; }
+
+       .ladang {
+            font-size:14pt;
+                    color:#2c7af7;
+                    text-shadow: 1px 1px #ffffff;
+                    text-align: center;
+           }
+
     </style>
 
 </head>
@@ -157,7 +165,16 @@ https://leafletjs.com/examples/quick-start/
                         },
 
                         onEachFeature: function(feature, layer) {
-                        layer.addTo(map);
+                            var iconLabel = L.divIcon({
+									className: 'ladang',
+									html: '<b>'+feature.properties.nama+'</b>',
+									iconSize: [100, 20]
+								});
+								
+                            L.marker(layer.getBounds().getCenter(),{icon:iconLabel}).addTo(map);				
+                            layer.addTo(map);   
+
+                       
                         }
                     });
                 })

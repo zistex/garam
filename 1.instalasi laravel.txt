@@ -1,0 +1,7 @@
+https://laravel.com/docs/8.x/installation#getting-started-on-windows
+
+composer create-project laravel/laravel example-app
+
+cd example-app
+
+php artisan serve

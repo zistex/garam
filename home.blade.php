@@ -17,7 +17,7 @@
    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
    <style>
-       #mapid { height: 100vh; }
+       #mapid { height: 80vh; }
 
        .ladang {
                     font-size:14pt;
@@ -30,9 +30,18 @@
 
 </head>
 <body>
+  <div style="margin-top:100px;">
+  <select onchange="pilih(this)">
+    <option value="1">ladang Garam 1<option>
+    <option  value="2">Bangunan<option>
+          </select>   
+
+</div>
+  
      <div id="mapid"></div>
 </body>
 <script>
+   var geoLayer;
     var map = L.map('mapid').setView([-7.2759291,112.7464332], 15);
 
     // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -142,6 +151,7 @@
 
 
                           if (feature.properties.kategori ==1){
+
                             return {
                                         weight: 2,
                                         opacity: 1,
@@ -204,7 +214,35 @@
                             })
 
 
-    map.on('zoomend', function() {
+
+
+
+
+
+      function pilih(v){
+       
+
+        geoLayer.eachLayer(function(layer) {
+   
+          if(layer.feature.properties.id==v.value){
+            map.flyTo(layer.getBounds().getCenter(), 16);
+            //layer.bindPopup(layer.feature.properties.nama);
+          }
+          
+        });
+
+      }
+
+
+
+
+
+
+
+
+
+
+      map.on('zoomend', function() {
 
       if (map.getZoom()>13){
 

@@ -4,3 +4,11 @@ Pelatihan PT. Garam
 https://leafletjs.com/
 https://laravel.com/
 https://getcomposer.org/download/
+
+https://laravel.com/docs/8.x/installation#getting-started-on-windows
+
+composer create-project laravel/laravel gis
+
+cd gis
+
+php artisan serve

@@ -235,7 +235,41 @@
 
 
 
+ //LEGENDA
+      var legend = L.control({position: 'bottomright'});
+      legend.onAdd = function (map) {
+    
+          var div = L.DomUtil.create('div', 'legend');
 
+
+          labels = ['<strong>Keterangan :</strong>'],
+
+          categories = ['Ladang Garam','Gedung'];
+
+          for (var i = 0; i < categories.length; i++) {
+                  
+                  if (i==0){
+                      div.innerHTML += 
+                                  labels.push(
+                                      '<img width="20" height="23" src="assets/icons/hotel.png"><i class="circle" style="background:#000000"></i> ' +
+                                  (categories[i] ? categories[i] : '+'));
+                  
+                  }
+                  else if (i==1){
+                      div.innerHTML += 
+                                  labels.push(
+                                      '<img width="20" height="23" src="assets/icons/icon2.png"><i class="circle" style="background:#000000"></i> ' +
+                                  (categories[i] ? categories[i] : '+'));
+                  
+                  }
+                
+
+              }
+              div.innerHTML = labels.join('<br>');
+          return div;
+          };
+          
+      legend.addTo(map);
 
 
 

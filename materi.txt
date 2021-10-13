@@ -92,3 +92,7 @@ https://stackoverflow.com/questions/33343881/leaflet-in-google-maps
 
 https://mapicons.mapsmarker.com/
 
+
+//polyline
+https://leafletjs.com/reference-1.7.1.html#polyline
+
